@@ -2,8 +2,8 @@ import Post from '../../domian/model/Post.js';
 
 const createPost = async (req, res) => {
   try {
-    const { author,  content, title} = req.body;
-    const newPost = new Post({ title, content, author });
+    const { author, content} = req.body;
+    const newPost = new Post({ content, author });
     const savedPost = await newPost.save();
     res.status(201).json(savedPost);
   } catch (error) {
@@ -14,7 +14,7 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate('author', 'username').populate('comments');
     res.status(200).json(posts);
   } catch (error) {
     console.error(error);
