@@ -1,10 +1,17 @@
 import {Comment, Reply} from "../../domian/model/Comment.js"
+import  Post from "../../domian/model/Post.js"
+
 
 const createComment = async (req, res) => {
   const { post, author, content } = req.body.comment;
+
+  const posts = await Post.findById(req.params.postId);
   try {
     const newComment = await Comment.create({ post, author, content });
+    posts.comments.push(newComment._id);
+    await posts.save();
     res.status(201).json({ comment: newComment });
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Error creating comment' });
@@ -42,7 +49,6 @@ const editComment = async (req, res) => {
 
 const deleteComment = async (req, res) => {
   const { id } = req.params;
-  console.log("first", req.params);
   try {
     await Comment.findByIdAndDelete(id);
     res.status(200).json({ message: 'Comment deleted successfully' });
@@ -67,7 +73,6 @@ const replyComment = async (req, res) => {
     parentComment.childrenComments.push(sevedReply._id);
 
     await parentComment.save();
-    console.log("set", parentComment)
     res.json(sevedReply);
   } catch (error) {
     console.error(error);
