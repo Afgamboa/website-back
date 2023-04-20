@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from '../schemas/user.schema'
+import { Users } from '../schemas/user.schema'
 import { Model } from 'mongoose';
 import * as jwt  from 'jsonwebtoken'
 import { config } from '../config'
@@ -11,7 +11,7 @@ import { userRegister } from '../interfaces/Auth.interfaces'
 @Injectable()
 export class AuthService {
 
-    constructor(@InjectModel('Users') private userModel: Model<User>){}
+    constructor(@InjectModel(Users.name) private userModel: Model<Users>){}
 
     async login(login: loginDTO) {
         const user = await this.userModel.findOne({ email: login.email });

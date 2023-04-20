@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory  } from "@nestjs/mongoose";
 
 @Schema({collection: 'Users'})
-export class User {
+export class Users {
 
     @Prop()
     email: string
@@ -17,4 +17,4 @@ export class User {
 
 }
 
-export const userSchema = SchemaFactory.createForClass(User);
+export const userSchema = SchemaFactory.createForClass(Users);

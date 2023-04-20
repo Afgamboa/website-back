@@ -1,6 +1,6 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from 'mongoose';
-import { User } from './user.schema';
+import { Users } from './user.schema';
 
 @Schema({collection: 'Post'})
 export class Posts {
@@ -8,10 +8,9 @@ export class Posts {
     content: string;
     
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Users', required: true })
-    author: User;
+    author: Users;
 
-    //@Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
-    @Prop()
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
     comments: Comment[];
   
     @Prop({ default: Date.now })

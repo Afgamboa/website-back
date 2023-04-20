@@ -1,9 +1,11 @@
-import { Controller, Get, Res, Post, Body, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Res, Post, Body, Delete, Param, UseInterceptors } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { Posts } from '../schemas/post.schema';
 import { dataAddPostDTO } from '../dto/post.dto'
 
+import { AuthenticateTokenInterceptor } from '../interceptors/auth.interceptor';
 
+@UseInterceptors(AuthenticateTokenInterceptor)
 @Controller('api/posts')
 export class PostsController {
 
