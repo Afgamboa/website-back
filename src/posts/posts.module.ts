@@ -6,8 +6,6 @@ import { Posts, postSchema } from '../schemas/post.schema';
 import { Comment, commentSchema } from '../schemas/comment.schema';
 import { Users, userSchema } from '../schemas/user.schema';
 
-
-
 @Module({
   imports: [
     MongooseModule.forFeature([
